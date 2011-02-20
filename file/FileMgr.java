@@ -142,4 +142,12 @@ public class FileMgr {
       }
       return fc;
    }
+
+   public int readCount() {
+	   return readCount;
+   }
+
+   public int writeCount() {
+	   return writeCount;
+   }
 }
