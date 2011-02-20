@@ -33,6 +33,7 @@ class BasicBufferMgr {
       freeList = new ArrayList<Buffer>(numbuffs);
       aOne = new ArrayList<Buffer>(numbuffs);
       aEm = new ArrayList<Buffer>(numbuffs);
+      threshold = 3;
       numAvailable = numbuffs;
       for (int i=0; i<numbuffs; i++) {
          bufferpool[i] = new Buffer();
@@ -98,6 +99,13 @@ class BasicBufferMgr {
     */
    synchronized void unpin(Buffer buff) {
       buff.unpin();
+      if (aEm.contains(buff)) {
+      	aEm.add(0,buff);
+      } else if (aOne.contains(buff)) {
+      	aEm.add(0,buff);
+      } else {
+      	aOne.add(0,buff);
+      }
       if (!buff.isPinned())
          numAvailable++;
    }
@@ -120,9 +128,14 @@ class BasicBufferMgr {
    }
    
    private Buffer chooseUnpinnedBuffer() {
-     //This needs to be changed
+     //This has been changed
      for (Buffer buff : freeList) {
      	return buff;
+     }
+     if (aOne.size() > threshold || aEm.isEmpty()) {
+     	return aOne.remove(aOne.size()-1);
+     } else {
+     	return aEm.remove(aEm.size()-1);
      }
      /* Old Code
       for (Buffer buff : bufferpool)
@@ -130,5 +143,13 @@ class BasicBufferMgr {
          return buff;
      */
       return null;
+   }
+
+   public int getThreshold() {
+   	return threshold;
+   }
+
+   public int setThreshold(int t) {
+   	threshold = t;
    }
 }
