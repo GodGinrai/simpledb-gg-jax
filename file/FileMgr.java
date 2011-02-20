@@ -143,11 +143,11 @@ public class FileMgr {
       return fc;
    }
 
-   public int readCount() {
+   public int getReadCount() {
 	   return readCount;
    }
 
-   public int writeCount() {
+   public int getWriteCount() {
 	   return writeCount;
    }
 }
