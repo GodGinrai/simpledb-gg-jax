@@ -9,6 +9,10 @@ import simpledb.file.*;
  */
 class BasicBufferMgr {
    private Buffer[] bufferpool;
+   private ArrayList<Buffer> freeList;
+   private ArrayList<Buffer> aOne;
+   private ArrayList<Buffer> aEm;
+   private int threshold;
    private int numAvailable;
    
    /**
@@ -26,9 +30,14 @@ class BasicBufferMgr {
     */
    BasicBufferMgr(int numbuffs) {
       bufferpool = new Buffer[numbuffs];
+      freeList = new ArrayList<Buffer>(numbuffs);
+      aOne = new ArrayList<Buffer>(numbuffs);
+      aEm = new ArrayList<Buffer>(numbuffs);
       numAvailable = numbuffs;
-      for (int i=0; i<numbuffs; i++)
+      for (int i=0; i<numbuffs; i++) {
          bufferpool[i] = new Buffer();
+	 freeList.add(bufferpool[i]);
+      }
    }
    
    /**
@@ -112,9 +121,14 @@ class BasicBufferMgr {
    
    private Buffer chooseUnpinnedBuffer() {
      //This needs to be changed
+     for (Buffer buff : freeList) {
+     	return buff;
+     }
+     /* Old Code
       for (Buffer buff : bufferpool)
          if (!buff.isPinned())
          return buff;
+     */
       return null;
    }
 }
