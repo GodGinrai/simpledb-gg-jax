@@ -1,6 +1,7 @@
 package simpledb.buffer;
 
 import simpledb.file.*;
+import java.util.ArrayList;
 
 /**
  * Manages the pinning and unpinning of buffers to blocks.
