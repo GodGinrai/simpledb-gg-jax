@@ -143,14 +143,13 @@ class BasicBufferMgr {
          if (!buff.isPinned())
          return buff;
      */
-      return null;
    }
 
    public int getThreshold() {
    	return threshold;
    }
 
-   public int setThreshold(int t) {
+   public void setThreshold(int t) {
    	threshold = t;
    }
 
