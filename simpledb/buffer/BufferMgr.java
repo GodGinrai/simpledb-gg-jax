@@ -121,4 +121,8 @@ public class BufferMgr {
    private boolean waitingTooLong(long starttime) {
       return System.currentTimeMillis() - starttime > MAX_TIME;
    }
+   //Extended the Wrapper
+   public String toString() {
+   	return bufferMgr.toString();
+   }
 }
