@@ -152,4 +152,12 @@ class BasicBufferMgr {
    public int setThreshold(int t) {
    	threshold = t;
    }
+
+   public String toString() {
+   	String ret = "";
+   	for (Buffer buff : bufferpool) {
+		ret += "\t" + buff.block().number() + " " + ((buff.isPinned()) ? "p" : "u");
+	}
+	return ret;
+   }
 }
