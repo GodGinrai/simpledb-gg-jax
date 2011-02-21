@@ -156,7 +156,7 @@ class BasicBufferMgr {
    public String toString() {
    	String ret = "";
    	for (Buffer buff : bufferpool) {
-		ret += "\t" + buff.block().number() + " " + ((buff.isPinned()) ? "p" : "u");
+		ret += "\t" + ((buff.block() != null) ? buff.block().number() : -2) + " " + ((buff.isPinned()) ? "p" : "u");
 	}
 	return ret;
    }
